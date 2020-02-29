@@ -13,3 +13,7 @@ Python
 
 **Tools**
 Original run in Jupyter Notebook
+
+**Data Sets**
+* A data set containing data about approximately 10,000 Android apps from Google Play; the data was collected in August 2018. *googleplaystore.csv*
+* A data set containing data about approximately 7,000 iOS apps from the App Store; the data was collected in July 2017. *AppleStore.csv*
