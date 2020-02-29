@@ -1,4 +1,4 @@
-# Profitable App Profiles for the App Store and Google Play Markets**
+# Profitable App Profiles for the App Store and Google Play Markets
 
 **Premise**
 For this project, we'll pretend we're working as data analysts for a company that builds Android and iOS mobile apps. We make our apps available on Google Play and the App Store.
