@@ -29,8 +29,56 @@ google_header = explore_data(apps_data_google,0,1) # Header row (column names) i
 explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.csv
 
 # Data Cleaning
-     # Cleaning Goal 1: removing any data for non-English and priced apps)
-     # Cleaning Goal 2: googleplaystore.csv has an error for row 10473 (counting header) 
+     # Cleaning Goal 1: googleplaystore.csv has an error for row 10473 (counting header) 
+
+        # Column 'Category' (which should be [1]) was excluded
+        ['Life Made WI-Fi Touchscreen Photo Frame', '1.9', '19', '3.0M', '1,000+', 'Free', '0', 'Everyone', '', 'February 11, 2018', '1.0.19', '4.0 and up']
+        
         del apps_data_google[10473]
+
+     # Cleaning Goal 2: googleplaystore.csv has duplicate entries for apps
+        duplicate_apps = []
+        unique_apps = []
+
+        for app in apps_data_google:
+            name = app[0]
+            if name in unique_apps:
+                duplicate_apps.append(name)
+            else: 
+                unique_apps.append(name)
+
+        print('Number of duplicate apps:', len(duplicate_apps))
+        print('\n')
+        print('Examples of duplicate apps:', duplicate_apps[:15])
+
+        # Number of duplicate apps: 1181
+        # Examples of duplicate apps: ['Quick PDF Scanner + OCR FREE', 'Box', 'Google My Business', 'ZOOM Cloud Meetings', 'join.me - Simple Meetings', 'Box', 'Zenefits', 'Google Ads', 'Google My Business', 'Slack', 'FreshBooks Classic', 'Insightly CRM', 'QuickBooks Accounting: Invoicing & Expenses', 'HipChat - Chat Built for Teams', 'Xero Accounting Software']
+       
+        # We will find the data entry with the highest 'Rating'
+        reviews_max = {}
+
+        for app in apps_data_google[1:]:
+            name = app[0]
+            n_reviews = float(app[3])
+            
+            if name in reviews_max and reviews_max[name] < n_reviews:
+                reviews_max[name] = n_reviews
+            if name not in reviews_max: 
+                reviews_max[name] = n_reviews
+        
+        # We will remove any data with a lower rating than the rating in the above dictionary
+        google_clean = []
+        already_added = []
+
+        for app in apps_data_google[1:]:
+            name = app[0]
+            n_reviews = float(app[3])
+            
+            if reviews_max[name] == n_reviews and name not in already_added:
+                google_clean.append(app)
+                already_added.append(name)
+
+     # Cleaning Goal 3: removing any data for non-English and priced apps)
+     
 
 
