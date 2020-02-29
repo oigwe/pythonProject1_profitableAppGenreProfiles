@@ -31,6 +31,30 @@ def app_English(string):
     else: 
         return True
 
+def freq_table(data_set, index):
+    frequency_table = {}
+    for app in data_set:
+        data_point = app[index]
+        if data_point in frequency_table:
+            frequency_table[data_point] += 1
+        else:
+            frequency_table[data_point] = 1
+    for key in frequency_table:
+        frequency_table[key] = (frequency_table[key]/len(data_set))*100
+    
+    return frequency_table
+
+def display_table(dataset, index):
+    table = freq_table(dataset, index)
+    table_display = []
+    for key in table:
+        key_val_as_tuple = (table[key], key)
+        table_display.append(key_val_as_tuple)
+
+    table_sorted = sorted(table_display, reverse = True)
+    for entry in table_sorted:
+        print(entry[1], ':', entry[0])
+
 # Initial Exploration of Data
 
 apple_header = explore_data(apps_data_apple,0,1) # Header row (column names) in the AppleStore.csv
@@ -43,7 +67,7 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
      # Cleaning Goal 1: googleplaystore.csv has an error for row 10473 (counting header) 
 
         # Column 'Category' (which should be [1]) was excluded
-        ['Life Made WI-Fi Touchscreen Photo Frame', '1.9', '19', '3.0M', '1,000+', 'Free', '0', 'Everyone', '', 'February 11, 2018', '1.0.19', '4.0 and up']
+        # ['Life Made WI-Fi Touchscreen Photo Frame', '1.9', '19', '3.0M', '1,000+', 'Free', '0', 'Everyone', '', 'February 11, 2018', '1.0.19', '4.0 and up']
         
         del apps_data_google[10473]
 
@@ -100,9 +124,38 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
                 google_clean_english.append(app)
     
     # Cleaning Goal 4: removing any data for non-free/priced apps
-    google_clean_english_free = []
+        google_clean_english_free = []
+        apple_clean_free = []
 
-    for app in google_clean_english:
-        if app[6] == 'Free':
-            google_clean_english_free.append(app)
+        for app in google_clean_english:
+            if app[6] == 'Free':
+                google_clean_english_free.append(app)
 
+        for app in apps_data_apple:
+            if app[4] == '0.0':
+                apple_clean_free.append(app)
+
+# Frequency Tables
+
+    # Highest Rated
+        # Our conclusion was that we'll need to build a frequency table for the prime_genre column of the App Store data set, and for the Genres and Category columns of the Google Play data set.
+        # We'll build two functions we can use to analyze the frequency tables:
+
+            # - One function to generate frequency tables that show percentages - function: freq_table
+            # - Another function we can use to display the percentages in a descending order - funtion: display_table
+
+        print('Google Play Store - Category Frequency Table',display_table(google_clean_english_free,1))
+        print('\n')
+        print('Google Play Store - Genre Frequency Table',display_table(google_clean_english_free,9))
+        print('\n')
+        print('Apple App Store - prime_genre Frequency Table', display_table(apple_clean_free, 11))
+
+        # The frequency tables we analyzed showed us that the App Store is dominated by apps designed for fun, while Google Play shows a more balanced landscape of both practical and fun apps. 
+            # Apple App Store - prime_genre Frequency Table Example
+                # { Games : 55.64595660749507, Entertainment : 8.234714003944774, Photo & Video : 4.117357001972387, Social Networking : 3.5256410256410255, Education : 3.2544378698224854 }
+
+            # Google Play Store - Category Frequency Table Example
+                # { FAMILY : 18.898792733837304, GAME : 9.725826469592688, TOOLS : 8.462146000225657, BUSINESS : 4.592124562789123, LIFESTYLE : 3.9038700214374367 }
+        
+
+    
