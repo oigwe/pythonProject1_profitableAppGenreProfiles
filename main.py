@@ -28,3 +28,9 @@ explore_data(apps_data_apple,1,6,True) # First 5 data rows in AppleStore.csv
 google_header = explore_data(apps_data_google,0,1) # Header row (column names) in the googleplaystore.csv
 explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.csv
 
+# Data Cleaning
+     # Cleaning Goal 1: removing any data for non-English and priced apps)
+     # Cleaning Goal 2: googleplaystore.csv has an error for row 10473 (counting header) 
+        del apps_data_google[10473]
+
+
