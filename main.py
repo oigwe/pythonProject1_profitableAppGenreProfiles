@@ -20,6 +20,17 @@ def explore_data(dataset, start, end, rows_and_columns=False):
         print('Number of rows:', len(dataset))
         print('Number of columns:', len(dataset[0]))
 
+def app_English(string):
+    ascii_greater_127 = []
+    for character in string:
+        value = ord(character)
+        if value > 127:
+            ascii_greater_127.append(character)
+    if len(ascii_greater_127) > 3:
+        return False
+    else: 
+        return True
+
 # Initial Exploration of Data
 
 apple_header = explore_data(apps_data_apple,0,1) # Header row (column names) in the AppleStore.csv
@@ -78,7 +89,20 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
                 google_clean.append(app)
                 already_added.append(name)
 
-     # Cleaning Goal 3: removing any data for non-English and priced apps)
-     
+     # Cleaning Goal 3: removing any data for non-English
+        # Assumption: 
+            # Characters we commonly use in an English text are all in the range 0 to 127, according to the ASCII (American Standard Code for Information Interchange) system. 
+            # If we loop through the characters in the app name to search for characters with an ASCII greater than 127, we can guess whether or not an app is an English based app. If an app name has more than 3 characters with ASCII values over 127, we will exclude the app data.
 
+        google_clean_english = []
+        for app in google_clean:
+            if app_English(app[0]) == True:
+                google_clean_english.append(app)
+    
+    # Cleaning Goal 4: removing any data for non-free/priced apps
+    google_clean_english_free = []
+
+    for app in google_clean_english:
+        if app[6] == 'Free':
+            google_clean_english_free.append(app)
 
