@@ -1,11 +1,11 @@
 # Opening CSV Files
-opened_file_apple = open('/data_sets/AppleStore.csv')
 from csv import reader 
+
+opened_file_apple = open('/data_sets/AppleStore.csv')
 read_file_apple = reader(opened_file_apple) 
 apps_data_apple = list(read_file_apple)
 
 opened_file_google = open('/data_sets/googleplaystore.csv')
-from csv import reader 
 read_file_google = reader(opened_file_google) 
 apps_data_google = list(read_file_google)
 
@@ -98,7 +98,7 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
             
             if name in reviews_max and reviews_max[name] < n_reviews:
                 reviews_max[name] = n_reviews
-            if name not in reviews_max: 
+            elif name not in reviews_max: 
                 reviews_max[name] = n_reviews
         
         # We will remove any data with a lower rating than the rating in the above dictionary
@@ -109,7 +109,7 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
             name = app[0]
             n_reviews = float(app[3])
             
-            if reviews_max[name] == n_reviews and name not in already_added:
+            if (reviews_max[name] == n_reviews) and (name not in already_added):
                 google_clean.append(app)
                 already_added.append(name)
 
@@ -119,21 +119,27 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
             # If we loop through the characters in the app name to search for characters with an ASCII greater than 127, we can guess whether or not an app is an English based app. If an app name has more than 3 characters with ASCII values over 127, we will exclude the app data.
 
         google_clean_english = []
+        apple_clean_english = []
+
         for app in google_clean:
             if app_English(app[0]) == True:
                 google_clean_english.append(app)
+        
+        for app in apps_data_apple:
+            if app_English(app[1]) == True:
+                apple_clean_english.append(app)
     
     # Cleaning Goal 4: removing any data for non-free/priced apps
-        google_clean_english_free = []
-        apple_clean_free = []
+        google_final = []
+        apple_final = []
 
         for app in google_clean_english:
             if app[6] == 'Free':
-                google_clean_english_free.append(app)
+                google_final.append(app)
 
-        for app in apps_data_apple:
+        for app in apple_clean_english:
             if app[4] == '0.0':
-                apple_clean_free.append(app)
+                apple_final.append(app)
 
 # Frequency Tables
 
@@ -144,11 +150,11 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
             # - One function to generate frequency tables that show percentages - function: freq_table
             # - Another function we can use to display the percentages in a descending order - funtion: display_table
 
-        print('Google Play Store - Category Frequency Table',display_table(google_clean_english_free,1))
+        print('Google Play Store - Category Frequency Table',display_table(google_final,1))
         print('\n')
-        print('Google Play Store - Genre Frequency Table',display_table(google_clean_english_free,9))
+        print('Google Play Store - Genre Frequency Table',display_table(google_final,9))
         print('\n')
-        print('Apple App Store - prime_genre Frequency Table', display_table(apple_clean_free, 11))
+        print('Apple App Store - prime_genre Frequency Table', display_table(apple_final, 11))
 
         # The frequency tables we analyzed showed us that the App Store is dominated by apps designed for fun, while Google Play shows a more balanced landscape of both practical and fun apps. 
             # Apple App Store - prime_genre Frequency Table Example
@@ -156,6 +162,43 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
 
             # Google Play Store - Category Frequency Table Example
                 # { FAMILY : 18.898792733837304, GAME : 9.725826469592688, TOOLS : 8.462146000225657, BUSINESS : 4.592124562789123, LIFESTYLE : 3.9038700214374367 }
-        
-
     
+    # Average Number of Installs
+        # Now, we'd like to get an idea about the kind of apps with the most users.
+        # One way to find out what genres are the most popular (have the most users) is to calculate the average number of installs for each app genre. For the Google Play data set, we can find this information in the Installs column, but this information is missing for the App Store data set. As a workaround, we'll take the total number of user ratings as a proxy, which we can find in the rating_count_tot app.
+
+        # App Store
+        p_genres = freq_table(apple_final, 11)
+
+        for genre in p_genres:
+            total = 0
+            len_genre = 0
+            for app in apple_final:
+                genre_app = app[11]
+                if genre_app == genre:
+                    user_ratings_tot= float(app[5])
+                    total += user_ratings_tot
+                    len_genre += 1
+
+            avg_user_ratings = total/len_genre
+            print(genre, ':', avg_user_ratings)
+        
+        # Google Store
+        categories = freq_table(google_final, 1)
+
+        for category in categories:
+            total = 0
+            len_category = 0
+            for app in google_final:
+                category_app = app[1]
+                if category_app == category:
+                    remove = ''
+                    if '+' in app[5]:
+                        remove = app[5].translate({ord('+'): None})
+                    if ',' in app[5]:
+                        remove = remove.translate({ord(','): None})
+                    installs = float(remove)
+                    total += installs
+                    len_category += 1
+            avg_installs = total/len_category
+            print(category, ':', avg_user_ratings)
