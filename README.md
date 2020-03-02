@@ -29,23 +29,7 @@
     * File: *AppleStore.csv*
 
 ---
-**Opening CSV Files**
-
-```
-from csv import reader 
-
-### Apple App Store Dataset ###
-opened_file_apple = open('/data_sets/AppleStore.csv')
-read_file_apple = reader(opened_file_apple) 
-apps_data_apple = list(read_file_apple)
-
-### Google Play Store Dataset ###
-opened_file_google = open('/data_sets/googleplaystore.csv')
-read_file_google = reader(opened_file_google) 
-apps_data_google = list(read_file_google)`
-```
----
-**Functions**
+# Functions
 
 **explore_data()** - Built to explore rows in a more readable way. There is an option in our function to show the number of rows and columns for any data set.
 
@@ -96,7 +80,6 @@ def is_app_English(string):
     else: 
         return True
 ```
-
 **freq_table() & display_table()** - Two functions used to analyze the frequency tables:
 
 * One function to generate frequency tables that show percentages
@@ -127,3 +110,20 @@ def display_table(dataset, index):
     for entry in table_sorted:
         print(entry[1], ':', entry[0])
 ```
+---
+# Opening CSV Files
+
+```
+from csv import reader 
+
+### Apple App Store Dataset ###
+opened_file_apple = open('/data_sets/AppleStore.csv')
+read_file_apple = reader(opened_file_apple) 
+apps_data_apple = list(read_file_apple)
+
+### Google Play Store Dataset ###
+opened_file_google = open('/data_sets/googleplaystore.csv')
+read_file_google = reader(opened_file_google) 
+apps_data_google = list(read_file_google)`
+```
+
