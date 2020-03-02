@@ -159,5 +159,25 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
 Number of rows: 10842
 Number of columns: 13
 
+```
+---
+## Data Cleaning
+
+### Cleaning Goal 1
+The googleplaystore.csv has an error in row 10473 (counting header) 
 
 ```
+print(google_apps_Data[10473])  # incorrect row
+print('\n')
+print(google_header)  # header
+```
+```
+['Life Made WI-Fi Touchscreen Photo Frame', '1.9', '19', '3.0M', '1,000+', 'Free', '0', 'Everyone', '', 'February 11, 2018', '1.0.19', '4.0 and up']
+
+
+['App', 'Category', 'Rating', 'Reviews', 'Size', 'Installs', 'Type', 'Price', 'Content Rating', 'Genres', 'Last Updated', 'Current Ver', 'Android Ver']
+
+```
+The data for column 'Category' (which should be index 1 ([1])) was excluded
+We will remove the row.
+`del apps_data_google[10473]`
