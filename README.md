@@ -253,3 +253,31 @@ We will remove any duplicate that has a user rating count that is lower than the
             google_clean.append(app)
             already_added.append(name)
 ```
+## Cleaning Goal 3: Non-English Apps
+
+We have come across apps that have non-English names. Our assumption is that a non-English name is an indication that the app is an non-English app. We do not want to analyze non-English apps. The characters we commonly use in English generally have ASCII (American Standard Code for Information Interchange) values in the of range 0 to 127. If we loop through the characters in the app names, and search for characters with an ASCII greater than 127, we can guess whether or not an app is an English based app. 
+
+If an app name has more than 3 characters with ASCII values over 127, we will exclude the app data. This logic is our best effort to avoid removing apps that may have English names, but symbols like emoticons. 
+
+```
+        google_clean_english = []
+        apple_clean_english = []
+
+        for app in google_clean:
+            if is_app_English(app[0]):
+                google_clean_english.append(app)
+        
+        for app in apps_data_apple:
+            if is_app_English(app[1]):
+                apple_clean_english.append(app)
+```
+```
+print(is_app_English('Docs To Go™ Free Office Suite'))
+print(is_app_English('Instachat 😜'))
+print(is_app_English('爱奇艺PPS -《欢乐颂2》电视剧热播'))
+
+True
+True
+False
+```
+---
