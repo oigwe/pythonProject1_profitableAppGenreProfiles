@@ -20,7 +20,7 @@ def explore_data(dataset, start, end, rows_and_columns=False):
         print('Number of rows:', len(dataset))
         print('Number of columns:', len(dataset[0]))
 
-def app_English(string):
+def is_app_English(string):
     ascii_greater_127 = []
     for character in string:
         value = ord(character)
@@ -122,11 +122,11 @@ explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.c
         apple_clean_english = []
 
         for app in google_clean:
-            if app_English(app[0]) == True:
+            if is_app_English(app[0]) == True:
                 google_clean_english.append(app)
         
         for app in apps_data_apple:
-            if app_English(app[1]) == True:
+            if is_app_English(app[1]) == True:
                 apple_clean_english.append(app)
     
     # Cleaning Goal 4: removing any data for non-free/priced apps

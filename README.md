@@ -44,9 +44,10 @@ opened_file_google = open('/data_sets/googleplaystore.csv')
 read_file_google = reader(opened_file_google) 
 apps_data_google = list(read_file_google)`
 ```
+---
 **Functions**
 
-explore_data() - to explore rows in a more readable way. There is an option in our function to show the number of rows and columns for any data set.
+explore_data() - Built to explore rows in a more readable way. There is an option in our function to show the number of rows and columns for any data set.
 
 ```
 def explore_data(dataset, start, end, rows_and_columns=False):
@@ -80,4 +81,18 @@ explore_data(apps_data_apple,1,6,True)
 
 Number of rows: 7198
 Number of columns: 16
+```
+is_app_English() - We are not interested in analyzing non-English apps. Some of the apps have non-English names/titles. Our assumption is that a non-English names indicates a non-English app. This function is built to loop through the app names and find at least 3 characters with ASCII values over 127.
+
+```
+def is_app_English(string):
+    ascii_greater_127 = []
+    for character in string:
+        value = ord(character)
+        if value > 127:
+            ascii_greater_127.append(character)
+    if len(ascii_greater_127) > 3:
+        return False
+    else: 
+        return True
 ```
