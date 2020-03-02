@@ -27,3 +27,20 @@
     * File: *googleplaystore.csv*
  * A data set containing data about approximately 7,000 iOS apps from the App Store; the data was collected in July 2017.        
     * File: *AppleStore.csv*
+
+---
+**Opening CSV Files**
+
+```
+from csv import reader 
+
+### Apple App Store Dataset ###
+opened_file_apple = open('/data_sets/AppleStore.csv')
+read_file_apple = reader(opened_file_apple) 
+apps_data_apple = list(read_file_apple)
+
+### Google Play Store Dataset ###
+opened_file_google = open('/data_sets/googleplaystore.csv')
+read_file_google = reader(opened_file_google) 
+apps_data_google = list(read_file_google)`
+```

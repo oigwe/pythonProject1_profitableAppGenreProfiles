@@ -1,4 +1,4 @@
-# Opening CSV Files
+Opening CSV Files
 from csv import reader 
 
 opened_file_apple = open('/data_sets/AppleStore.csv')
