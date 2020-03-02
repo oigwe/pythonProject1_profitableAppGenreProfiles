@@ -243,13 +243,13 @@ We will remove any duplicate that has a user rating count that is lower than the
 
 ```
     google_clean = []
-        already_added = []
+    already_added = []
 
-        for app in apps_data_google[1:]:
-            name = app[0]
-            n_reviews = float(app[3])
+    for app in apps_data_google[1:]:
+        name = app[0]
+        n_reviews = float(app[3])
             
-            if (reviews_max[name] == n_reviews) and (name not in already_added):
-                google_clean.append(app)
-                already_added.append(name)
+        if (reviews_max[name] == n_reviews) and (name not in already_added):
+            google_clean.append(app)
+            already_added.append(name)
 ```
