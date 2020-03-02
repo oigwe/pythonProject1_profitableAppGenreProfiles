@@ -29,7 +29,7 @@
     * File: *AppleStore.csv*
 
 ---
-# Functions
+## Functions
 
 **explore_data()** - Built to explore rows in a more readable way. There is an option in our function to show the number of rows and columns for any data set.
 
@@ -111,7 +111,7 @@ def display_table(dataset, index):
         print(entry[1], ':', entry[0])
 ```
 ---
-# Opening CSV Files
+## Opening CSV Files
 
 ```
 from csv import reader 
@@ -126,4 +126,56 @@ opened_file_google = open('/data_sets/googleplaystore.csv')
 read_file_google = reader(opened_file_google) 
 apps_data_google = list(read_file_google)`
 ```
+**Initial Exploration of Data**
 
+```
+apple_header = explore_data(apps_data_apple,0,1) # Header row (column names) in the AppleStore.csv
+
+['id', 'track_name', 'size_bytes', 'currency', 'price', 'rating_count_tot', 'rating_count_ver', 'user_rating', 'user_rating_ver', 'ver', 'cont_rating', 'prime_genre', 'sup_devices.num', 'ipadSc_urls.num', 'lang.num', 'vpp_lic']
+
+explore_data(apps_data_apple,1,6,True) # First 5 data rows in AppleStore.csv
+
+['284882215', 'Facebook', '389879808', 'USD', '0.0', '2974676', '212', '3.5', '3.5', '95.0', '4+', 'Social Networking', '37', '1', '29', '1']
+
+
+['389801252', 'Instagram', '113954816', 'USD', '0.0', '2161558', '1289', '4.5', '4.0', '10.23', '12+', 'Photo & Video', '37', '0', '29', '1']
+
+
+['529479190', 'Clash of Clans', '116476928', 'USD', '0.0', '2130805', '579', '4.5', '4.5', '9.24.12', '9+', 'Games', '38', '5', '18', '1']
+
+
+['420009108', 'Temple Run', '65921024', 'USD', '0.0', '1724546', '3842', '4.5', '4.0', '1.6.2', '9+', 'Games', '40', '5', '1', '1']
+
+
+['284035177', 'Pandora - Music & Radio', '130242560', 'USD', '0.0', '1126879', '3594', '4.0', '4.5', '8.4.1', '12+', 'Music', '37', '4', '1', '1']
+
+
+Number of rows: 7198
+Number of columns: 16
+
+google_header = explore_data(apps_data_google,0,1) # Header row (column names) in the googleplaystore.csv
+
+['App', 'Category', 'Rating', 'Reviews', 'Size', 'Installs', 'Type', 'Price', 'Content Rating', 'Genres', 'Last Updated', 'Current Ver', 'Android Ver']
+
+explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.csv
+
+['Photo Editor & Candy Camera & Grid & ScrapBook', 'ART_AND_DESIGN', '4.1', '159', '19M', '10,000+', 'Free', '0', 'Everyone', 'Art & Design', 'January 7, 2018', '1.0.0', '4.0.3 and up']
+
+
+['Coloring book moana', 'ART_AND_DESIGN', '3.9', '967', '14M', '500,000+', 'Free', '0', 'Everyone', 'Art & Design;Pretend Play', 'January 15, 2018', '2.0.0', '4.0.3 and up']
+
+
+['U Launcher Lite – FREE Live Cool Themes, Hide Apps', 'ART_AND_DESIGN', '4.7', '87510', '8.7M', '5,000,000+', 'Free', '0', 'Everyone', 'Art & Design', 'August 1, 2018', '1.2.4', '4.0.3 and up']
+
+
+['Sketch - Draw & Paint', 'ART_AND_DESIGN', '4.5', '215644', '25M', '50,000,000+', 'Free', '0', 'Teen', 'Art & Design', 'June 8, 2018', 'Varies with device', '4.2 and up']
+
+
+['Pixel Draw - Number Art Coloring Book', 'ART_AND_DESIGN', '4.3', '967', '2.8M', '100,000+', 'Free', '0', 'Everyone', 'Art & Design;Creativity', 'June 20, 2018', '1.1', '4.4 and up']
+
+
+Number of rows: 10842
+Number of columns: 13
+
+
+```
