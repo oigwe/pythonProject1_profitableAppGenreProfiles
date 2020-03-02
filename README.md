@@ -108,7 +108,7 @@ apps_data_google = list(read_file_google)`
 **Initial Exploration of Data**
 
 ```
-apple_header = explore_data(apps_data_apple,0,1) # Header row (column names) in the AppleStore.csv
+**apple_header** = explore_data(apps_data_apple,0,1) # Header row (column names) in the AppleStore.csv
 
 ['id', 'track_name', 'size_bytes', 'currency', 'price', 'rating_count_tot', 'rating_count_ver', 'user_rating', 'user_rating_ver', 'ver', 'cont_rating', 'prime_genre', 'sup_devices.num', 'ipadSc_urls.num', 'lang.num', 'vpp_lic']
 
@@ -132,7 +132,7 @@ explore_data(apps_data_apple,1,6,True) # First 5 data rows in AppleStore.csv
 Number of rows: 7198
 Number of columns: 16
 
-google_header = explore_data(apps_data_google,0,1) # Header row (column names) in the googleplaystore.csv
+**google_header** = explore_data(apps_data_google,0,1) # Header row (column names) in the googleplaystore.csv
 
 ['App', 'Category', 'Rating', 'Reviews', 'Size', 'Installs', 'Type', 'Price', 'Content Rating', 'Genres', 'Last Updated', 'Current Ver', 'Android Ver']
 
