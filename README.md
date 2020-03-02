@@ -242,16 +242,16 @@ We have decided to find and use the entry with the highest user rating count, pe
 We will remove any duplicate that has a user rating count that is lower than the count listed in the dictionary above 
 
 ```
-    google_clean = []
-    already_added = []
+google_clean = []
+already_added = []
 
-    for app in apps_data_google[1:]:
-        name = app[0]
-        n_reviews = float(app[3])
+for app in apps_data_google[1:]:
+    name = app[0]
+    n_reviews = float(app[3])
             
-        if (reviews_max[name] == n_reviews) and (name not in already_added):
-            google_clean.append(app)
-            already_added.append(name)
+    if (reviews_max[name] == n_reviews) and (name not in already_added):
+        google_clean.append(app)
+        already_added.append(name)
 ```
 ## Cleaning Goal 3: Non-English Apps
 
