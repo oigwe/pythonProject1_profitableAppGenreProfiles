@@ -163,7 +163,7 @@ Number of columns: 13
 ---
 ## Data Cleaning
 
-### Cleaning Goal 1
+### Cleaning Goal 1: Incorrect Entry
 The googleplaystore.csv has an error in row 10473 (counting header) 
 
 ```
@@ -180,4 +180,76 @@ print(google_header)  # header
 ```
 The data for column 'Category' (which should be index 1 ([1])) was excluded
 We will remove the row.
+
 `del apps_data_google[10473]`
+
+### Cleaning Goal 2: Duplicates
+The googleplaystore.csv has multiple entries for some apps. 
+
+First we must figure out which apps have multiple entries.
+
+```
+        duplicate_apps = []
+        unique_apps = []
+
+        for app in apps_data_google:
+            name = app[0]
+            if name in unique_apps:
+                duplicate_apps.append(name)
+            else: 
+                unique_apps.append(name)
+```
+```
+print('Number of duplicate apps:', len(duplicate_apps))
+print('\n')
+print('Examples of duplicate apps:', duplicate_apps[:15])
+
+Number of duplicate apps: 1181
+
+
+Examples of duplicate apps: ['Quick PDF Scanner + OCR FREE', 'Box', 'Google My Business', 'ZOOM Cloud Meetings', 'join.me - Simple Meetings', 'Box', 'Zenefits', 'Google Ads', 'Google My Business', 'Slack', 'FreshBooks Classic', 'Insightly CRM', 'QuickBooks Accounting: Invoicing & Expenses', 'HipChat - Chat Built for Teams', 'Xero Accounting Software']
+```
+
+We do not want to remove the duplicate entries at random. If we look at the multiple entries for the instagram app, we can see that the entries have different 'user ratings' count.
+
+```
+for app in google_apps_data:
+    name = app[0]
+    if name == 'Instagram':
+        print(app)
+```
+```
+['Instagram', 'SOCIAL', '4.5', '66577313', 'Varies with device', '1,000,000,000+', 'Free', '0', 'Teen', 'Social', 'July 31, 2018', 'Varies with device', 'Varies with device']
+['Instagram', 'SOCIAL', '4.5', '66577446', 'Varies with device', '1,000,000,000+', 'Free', '0', 'Teen', 'Social', 'July 31, 2018', 'Varies with device', 'Varies with device']
+['Instagram', 'SOCIAL', '4.5', '66577313', 'Varies with device', '1,000,000,000+', 'Free', '0', 'Teen', 'Social', 'July 31, 2018', 'Varies with device', 'Varies with device']
+['Instagram', 'SOCIAL', '4.5', '66509917', 'Varies with device', '1,000,000,000+', 'Free', '0', 'Teen', 'Social', 'July 31, 2018', 'Varies with device', 'Varies with device']
+```
+We have decided to find and use the entry with the highest user rating count, per duplicate app.
+
+```
+        reviews_max = {}
+
+        for app in apps_data_google[1:]:
+            name = app[0]
+            n_reviews = float(app[3])
+            
+            if name in reviews_max and reviews_max[name] < n_reviews:
+                reviews_max[name] = n_reviews
+            elif name not in reviews_max: 
+                reviews_max[name] = n_reviews
+    ```
+
+    We will remove any duplicate that has a user rating count that is lower than the count listed in the dictionary above 
+
+    ```
+    google_clean = []
+        already_added = []
+
+        for app in apps_data_google[1:]:
+            name = app[0]
+            n_reviews = float(app[3])
+            
+            if (reviews_max[name] == n_reviews) and (name not in already_added):
+                google_clean.append(app)
+                already_added.append(name)
+    ```
