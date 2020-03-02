@@ -99,8 +99,8 @@ def is_app_English(string):
 
 **freq_table() & display_table()** - Two functions used to analyze the frequency tables:
 
-*One function to generate frequency tables that show percentages
-*Another function that we can use to display the percentages in a descending order
+* One function to generate frequency tables that show percentages
+* Another function that we can use to display the percentages in a descending order
 
 ```
 def freq_table(data_set, index):
