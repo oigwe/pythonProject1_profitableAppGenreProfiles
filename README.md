@@ -47,7 +47,7 @@ apps_data_google = list(read_file_google)`
 ---
 **Functions**
 
-explore_data() - Built to explore rows in a more readable way. There is an option in our function to show the number of rows and columns for any data set.
+**explore_data()** - Built to explore rows in a more readable way. There is an option in our function to show the number of rows and columns for any data set.
 
 ```
 def explore_data(dataset, start, end, rows_and_columns=False):
@@ -82,7 +82,7 @@ explore_data(apps_data_apple,1,6,True)
 Number of rows: 7198
 Number of columns: 16
 ```
-is_app_English() - We are not interested in analyzing non-English apps. Some of the apps have non-English names/titles. Our assumption is that a non-English names indicates a non-English app. This function is built to loop through the app names and find at least 3 characters with ASCII values over 127.
+**is_app_English()** - We are not interested in analyzing non-English apps. Some of the apps have non-English names/titles. Our assumption is that a non-English names indicates a non-English app. This function is built to loop through the app names and find at least 3 characters with ASCII values over 127.
 
 ```
 def is_app_English(string):
@@ -95,4 +95,35 @@ def is_app_English(string):
         return False
     else: 
         return True
+```
+
+**freq_table() & display_table()** - Two functions used to analyze the frequency tables:
+
+*One function to generate frequency tables that show percentages
+*Another function that we can use to display the percentages in a descending order
+
+```
+def freq_table(data_set, index):
+    frequency_table = {}
+    for app in data_set:
+        data_point = app[index]
+        if data_point in frequency_table:
+            frequency_table[data_point] += 1
+        else:
+            frequency_table[data_point] = 1
+    for key in frequency_table:
+        frequency_table[key] = (frequency_table[key]/len(data_set))*100
+    
+    return frequency_table
+
+def display_table(dataset, index):
+    table = freq_table(dataset, index)
+    table_display = []
+    for key in table:
+        key_val_as_tuple = (table[key], key)
+        table_display.append(key_val_as_tuple)
+
+    table_sorted = sorted(table_display, reverse = True)
+    for entry in table_sorted:
+        print(entry[1], ':', entry[0])
 ```
