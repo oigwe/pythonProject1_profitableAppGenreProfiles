@@ -45,27 +45,6 @@ def explore_data(dataset, start, end, rows_and_columns=False):
         print('Number of columns:', len(dataset[0]))
 
 ```
-```
-explore_data(apps_data_apple,1,6,True)
-
-['284882215', 'Facebook', '389879808', 'USD', '0.0', '2974676', '212', '3.5', '3.5', '95.0', '4+', 'Social Networking', '37', '1', '29', '1']
-
-
-['389801252', 'Instagram', '113954816', 'USD', '0.0', '2161558', '1289', '4.5', '4.0', '10.23', '12+', 'Photo & Video', '37', '0', '29', '1']
-
-
-['529479190', 'Clash of Clans', '116476928', 'USD', '0.0', '2130805', '579', '4.5', '4.5', '9.24.12', '9+', 'Games', '38', '5', '18', '1']
-
-
-['420009108', 'Temple Run', '65921024', 'USD', '0.0', '1724546', '3842', '4.5', '4.0', '1.6.2', '9+', 'Games', '40', '5', '1', '1']
-
-
-['284035177', 'Pandora - Music & Radio', '130242560', 'USD', '0.0', '1126879', '3594', '4.0', '4.5', '8.4.1', '12+', 'Music', '37', '4', '1', '1']
-
-
-Number of rows: 7198
-Number of columns: 16
-```
 **is_app_English()** - We are not interested in analyzing non-English apps. Some of the apps have non-English names/titles. Our assumption is that a non-English names indicates a non-English app. This function is built to loop through the app names and find at least 3 characters with ASCII values over 127.
 
 ```
