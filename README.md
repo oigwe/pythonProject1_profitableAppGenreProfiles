@@ -237,11 +237,11 @@ We have decided to find and use the entry with the highest user rating count, pe
                 reviews_max[name] = n_reviews
             elif name not in reviews_max: 
                 reviews_max[name] = n_reviews
-    ```
+```
 
-    We will remove any duplicate that has a user rating count that is lower than the count listed in the dictionary above 
+We will remove any duplicate that has a user rating count that is lower than the count listed in the dictionary above 
 
-    ```
+```
     google_clean = []
         already_added = []
 
@@ -252,4 +252,4 @@ We have decided to find and use the entry with the highest user rating count, pe
             if (reviews_max[name] == n_reviews) and (name not in already_added):
                 google_clean.append(app)
                 already_added.append(name)
-    ```
+```
