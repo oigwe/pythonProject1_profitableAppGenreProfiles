@@ -280,4 +280,21 @@ True
 True
 False
 ```
+
+## Cleaning Goal 4: Removing Non-Free Apps
+
+We only want to analyze the data for free apps, and thus must removed any priced apps from out dataset.
+
+```
+google_final = []
+apple_final = []
+
+for app in google_clean_english:
+    if app[6] == 'Free':
+        google_final.append(app)
+
+for app in apple_clean_english:
+    if app[4] == '0.0':
+        apple_final.append(app)
+```
 ---
