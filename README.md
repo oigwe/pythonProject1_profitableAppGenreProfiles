@@ -60,7 +60,8 @@ def explore_data(dataset, start, end, rows_and_columns=False):
         print('Number of columns:', len(dataset[0]))
 
 ```
-`explore_data(apps_data_apple,1,6,True)`
+```
+explore_data(apps_data_apple,1,6,True)
 
 ['284882215', 'Facebook', '389879808', 'USD', '0.0', '2974676', '212', '3.5', '3.5', '95.0', '4+', 'Social Networking', '37', '1', '29', '1']
 
@@ -79,3 +80,4 @@ def explore_data(dataset, start, end, rows_and_columns=False):
 
 Number of rows: 7198
 Number of columns: 16
+```
