@@ -290,7 +290,7 @@ google_final = []
 apple_final = []
 
 for app in google_clean_english:
-    if app[6] == 'Free':
+    if app[7] == 'Free':
         google_final.append(app)
 
 for app in apple_clean_english:
