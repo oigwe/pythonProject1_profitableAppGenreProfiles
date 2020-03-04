@@ -281,7 +281,7 @@ True
 False
 ```
 
-## Cleaning Goal 4: Removing Non-Free Apps
+### Cleaning Goal 4: Removing Non-Free Apps
 
 We only want to analyze the data for free apps, and thus must removed any priced apps from out dataset.
 
@@ -298,3 +298,58 @@ for app in apple_clean_english:
         apple_final.append(app)
 ```
 ---
+## Analysis
+
+### Most Common Genre
+
+To minimize risks and overhead, our validation strategy for an app idea is comprised of three steps:
+
+* Build a minimal Android version of the app, and add it to Google Play.
+* If the app has a good response from users, we then develop it further.
+* If the app is profitable after six months, we also build an iOS version of the app and add it to the App Store.
+
+Our goal is to find app profiles that are successful on both markets. We will begin our analysis by building a frequency table for the prime_genre column of the App Store data set, and the Genres and Category columns of the Google Play data set. 
+
+We will use the freq_table() and display_table() functions. 
+* freq_tables() - will generate frequency tables that show percentages
+* display_table - will display the percentages in a descending order
+
+```
+print('Google - Category Frequency Table',display_table(google_final,1))
+
+FAMILY : 18.898792733837304
+GAME : 9.725826469592688
+TOOLS : 8.462146000225657
+BUSINESS : 4.592124562789123
+LIFESTYLE : 3.9038700214374367
+PRODUCTIVITY : 3.8925871601038025
+```
+```
+print('Apple - prime_genre Frequency Table', display_table(apple_final, 11))
+
+Games : 55.64595660749507
+Entertainment : 8.234714003944774
+Photo & Video : 4.117357001972387
+Social Networking : 3.5256410256410255
+Education : 3.2544378698224854
+
+```
+In the Apple App Store, among the free English apps, more than a half (55%) are games. Entertainment apps are close to 8%.
+
+At first glance games only make up 9% of apps, and it seems close to 19% of the apps are designed for family use. However, if we investigate this further, we can see that the family category means mostly games for kids.
+
+We must investigate further to determine if the numerous game apps, translate into numerous customers. 
+
+### Most Installs
+```
+p_genres = freq_table(apple_clean_free, 11)
+
+{'Utilities': 2.687376725838264, 'News': 1.4299802761341223, 'Food & Drink': 1.0601577909270217, 'Reference': 0.4930966469428008, 'Book': 1.6272189349112427, 'Shopping': 2.983234714003945, 'Productivity': 1.5285996055226825, 'Business': 0.4930966469428008, 'Sports': 1.947731755424063, 'Navigation': 0.4930966469428008, 'Games': 55.64595660749507, 'Health & Fitness': 1.8737672583826428, 'Education': 3.2544378698224854, 'Catalogs': 0.22189349112426035, 'Photo & Video': 4.117357001972387, 'Lifestyle': 2.3175542406311638, 'Entertainment': 8.234714003944774, 'Weather': 0.7642998027613412, 'Social Networking': 3.5256410256410255, 'Music': 1.6518737672583828, 'Finance': 2.0710059171597637, 'Travel': 1.3806706114398422, 'Medical': 0.19723865877712032}
+
+```
+
+
+
+
+
+
