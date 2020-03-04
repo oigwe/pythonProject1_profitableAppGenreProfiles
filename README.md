@@ -178,7 +178,7 @@ print(google_header)  # header
 ['App', 'Category', 'Rating', 'Reviews', 'Size', 'Installs', 'Type', 'Price', 'Content Rating', 'Genres', 'Last Updated', 'Current Ver', 'Android Ver']
 
 ```
-The data for column 'Category' (which should be index 1 ([1])) was excluded
+The data for column 'Category' (which should be index 1 ([1])) was excluded.
 We will remove the row.
 
 `del apps_data_google[10473]`
