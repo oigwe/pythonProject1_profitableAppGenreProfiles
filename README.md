@@ -347,7 +347,7 @@ We will also attempt to analysize genre popularity, based on the number of insta
 apple_p_genres = freq_table(apple_final, 11)
 google_Installs = freq_table(google_final,5)
 ```
-#### App Store
+#### Apple App Store
 
 Below, we calculate the average number of user ratings per app genre on the App Store:
 ```
@@ -420,6 +420,7 @@ for app in apple_final:
     if app[11] == 'Reference':
         print(app[1], ':', app[5])
 ```
+```
 Bible : 985920
 Dictionary.com Dictionary & Thesaurus : 200047
 Dictionary.com Dictionary & Thesaurus for iPad : 54175
@@ -437,8 +438,8 @@ Horror Maps for Minecraft PE - Download The Scariest Maps for Minecraft Pocket E
 VPN Express : 14
 Real Bike Traffic Rider Virtual Reality Glasses : 8
 Jishokun-Japanese English Dictionary & Translator : 0
-
-
+```
+#### Google Play Store
 
 
 
