@@ -253,7 +253,7 @@ for app in apps_data_google[1:]:
         google_clean.append(app)
         already_added.append(name)
 ```
-## Cleaning Goal 3: Non-English Apps
+### Cleaning Goal 3: Non-English Apps
 
 We have come across apps that have non-English names. Our assumption is that a non-English name is an indication that the app is an non-English app. We do not want to analyze non-English apps. The characters we commonly use in English generally have ASCII (American Standard Code for Information Interchange) values in the of range 0 to 127. If we loop through the characters in the app names, and search for characters with an ASCII greater than 127, we can guess whether or not an app is an English based app. 
 
