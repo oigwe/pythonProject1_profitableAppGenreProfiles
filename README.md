@@ -260,16 +260,16 @@ We have come across apps that have non-English names. Our assumption is that a n
 If an app name has more than 3 characters with ASCII values over 127, we will exclude the app data. This logic is our best effort to avoid removing apps that may have English names, but symbols like emoticons. 
 
 ```
-        google_clean_english = []
-        apple_clean_english = []
+google_clean_english = []
+apple_clean_english = []
 
-        for app in google_clean:
-            if is_app_English(app[0]):
-                google_clean_english.append(app)
+for app in google_clean:
+    if is_app_English(app[0]):
+        google_clean_english.append(app)
         
-        for app in apps_data_apple:
-            if is_app_English(app[1]):
-                apple_clean_english.append(app)
+for app in apps_data_apple:
+    if is_app_English(app[1]):
+        apple_clean_english.append(app)
 ```
 ```
 print(is_app_English('Docs To Go™ Free Office Suite'))
@@ -322,7 +322,7 @@ GAME : 9.725826469592688
 TOOLS : 8.462146000225657
 BUSINESS : 4.592124562789123
 LIFESTYLE : 3.9038700214374367
-PRODUCTIVITY : 3.8925871601038025
+PRODUCTIVITY : 3.8925871601038025 ...
 ```
 ```
 print('Apple - prime_genre Frequency Table', display_table(apple_final, 11))
@@ -331,7 +331,7 @@ Games : 55.64595660749507
 Entertainment : 8.234714003944774
 Photo & Video : 4.117357001972387
 Social Networking : 3.5256410256410255
-Education : 3.2544378698224854
+Education : 3.2544378698224854 ...
 
 ```
 In the Apple App Store, among the free English apps, more than a half (55%) are games. Entertainment apps are close to 8%.
@@ -344,11 +344,105 @@ At first glance games only make up 9% of apps, and it seems close to 19% of the 
 We will also attempt to analysize genre popularity, based on the number of installs. For the Google Play data set, we can find this information in the Installs column, but  the App Store data set does not have this specific data. We will use the total number of user ratings as a proxy, which we can find in the rating_count_tot app. 
 
 ```
-p_genres = freq_table(apple_clean_free, 11)
+apple_p_genres = freq_table(apple_final, 11)
+google_Installs = freq_table(google_final,5)
+```
+#### App Store
 
-{'Utilities': 2.687376725838264, 'News': 1.4299802761341223, 'Food & Drink': 1.0601577909270217, 'Reference': 0.4930966469428008, 'Book': 1.6272189349112427, 'Shopping': 2.983234714003945, 'Productivity': 1.5285996055226825, 'Business': 0.4930966469428008, 'Sports': 1.947731755424063, 'Navigation': 0.4930966469428008, 'Games': 55.64595660749507, 'Health & Fitness': 1.8737672583826428, 'Education': 3.2544378698224854, 'Catalogs': 0.22189349112426035, 'Photo & Video': 4.117357001972387, 'Lifestyle': 2.3175542406311638, 'Entertainment': 8.234714003944774, 'Weather': 0.7642998027613412, 'Social Networking': 3.5256410256410255, 'Music': 1.6518737672583828, 'Finance': 2.0710059171597637, 'Travel': 1.3806706114398422, 'Medical': 0.19723865877712032}
+Below, we calculate the average number of user ratings per app genre on the App Store:
+```
+for genre in p_genres:
+    total = 0
+    len_genre = 0
+    for app in apple_final:
+        genre_app = app[11]
+        if genre_app == genre:
+            user_ratings_tot= float(app[5])
+            total += user_ratings_tot
+            len_genre += 1
+
+    avg_user_ratings = total/len_genre
+    print(genre, ':', avg_user_ratings)
 
 ```
+```
+Utilities : 14010.100917431193
+News : 15892.724137931034
+Food & Drink : 20179.093023255813
+Reference : 67447.9
+Book : 8498.333333333334 ...
+```
+On average, the top three genres have the highest number of user reviews are:
+```
+Reference : 67447.9
+Music : 56482.02985074627
+Social Networking : 53078.195804195806
+
+```
+On further inspection, we have come to believe that the Music genre would not be the best direction for development. Approximately, 52% of the average reviews for apps in the music genre are for either the Pandora or the Spotify Music apps.
+
+```
+for app in apple_final:
+    if app[11] == 'Music':
+        print(app[1], ':', app[5])
+```
+```
+Pandora - Music & Radio : 1126879
+Spotify Music : 878563
+Shazam - Discover music, artists, videos & lyrics : 402925
+iHeartRadio – Free Music & Radio Stations : 293228
+SoundCloud - Music & Audio : 135744
+Magic Piano by Smule : 131695 ...
+```
+We can see a similar pattern of disproportionate distribution of reviews in the Social Networking genre. Apps such as Facebook, Pinterest, and Skype heavily influence the average number of reviews for the genre.
+
+```
+for app in apple_final:
+    if app[11] == 'Social Networking':
+        print(app[1], ':', app[5])
+```
+```
+Facebook : 2974676
+Pinterest : 1061624
+Skype for iPhone : 373519
+Messenger : 351466
+Tumblr : 334293 ...
+```
+We can see a similar pattern of disproportionate distribution of reviews in the Reference genre. The Bible and Dictionary.com apps dominate; however, there does seem to be far less potential competition in the Reference genre compared to the Music and Social Networking genres. 
+* Reference - 17 apps
+* Music - 66 apps
+* Social Networking - 103 apps
+
+Also a 6 out of 17 reference apps were apps related to games. A reference app related to a popular game, may be successful. This idea coincides with the previously noted trend that the App Store is dominated by entertainment/for-fun apps.
+
+```
+for app in apple_final:
+    if app[11] == 'Reference':
+        print(app[1], ':', app[5])
+```
+Bible : 985920
+Dictionary.com Dictionary & Thesaurus : 200047
+Dictionary.com Dictionary & Thesaurus for iPad : 54175
+Google Translate : 26786
+Muslim Pro: Ramadan 2017 Prayer Times, Azan, Quran : 18418
+New Furniture Mods - Pocket Wiki & Game Tools for Minecraft PC Edition : 17588
+Merriam-Webster Dictionary : 16849
+Night Sky : 12122
+City Maps for Minecraft PE - The Best Maps for Minecraft Pocket Edition (MCPE) : 8535
+LUCKY BLOCK MOD ™ for Minecraft PC Edition - The Best Pocket Wiki & Mods Installer Tools : 4693
+GUNS MODS for Minecraft PC Edition - Mods Tools : 1497
+Guides for Pokémon GO - Pokemon GO News and Cheats : 826
+WWDC : 762
+Horror Maps for Minecraft PE - Download The Scariest Maps for Minecraft Pocket Edition (MCPE) Free : 718
+VPN Express : 14
+Real Bike Traffic Rider Virtual Reality Glasses : 8
+Jishokun-Japanese English Dictionary & Translator : 0
+
+
+
+
+
+
 
 
 
