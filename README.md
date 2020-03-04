@@ -308,7 +308,7 @@ To minimize risks and overhead, our validation strategy for an app idea is compr
 * If the app has a good response from users, we then develop it further.
 * If the app is profitable after six months, we also build an iOS version of the app and add it to the App Store.
 
-Our goal is to find app profiles that are successful on both markets. We will begin our analysis by building a frequency table for the prime_genre column of the App Store data set, and the Genres and Category columns of the Google Play data set. 
+Our goal is to find app profiles that are successful on both markets. We will begin our analysis by building a frequency table for the prime_genre column of the App Store data set, and the Genres and Category columns of the Google Play data set. This analysis will determine what it the most frequently app genre. 
 
 We will use the freq_table() and display_table() functions. 
 * freq_tables() - will generate frequency tables that show percentages
@@ -338,9 +338,11 @@ In the Apple App Store, among the free English apps, more than a half (55%) are 
 
 At first glance games only make up 9% of apps, and it seems close to 19% of the apps are designed for family use. However, if we investigate this further, we can see that the family category means mostly games for kids.
 
-We must investigate further to determine if the numerous game apps, translate into numerous customers. 
 
 ### Most Installs
+
+We will also attempt to analysize genre popularity, based on the number of installs. For the Google Play data set, we can find this information in the Installs column, but  the App Store data set does not have this specific data. We will use the total number of user ratings as a proxy, which we can find in the rating_count_tot app. 
+
 ```
 p_genres = freq_table(apple_clean_free, 11)
 
