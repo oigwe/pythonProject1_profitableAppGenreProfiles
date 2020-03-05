@@ -372,7 +372,7 @@ Food & Drink : 20179.093023255813
 Reference : 67447.9
 Book : 8498.333333333334 ...
 ```
-On average, the top three genres have the highest number of user reviews are:
+The top three genres that have the highest number of average user reviews are:
 ```
 Reference : 67447.9
 Music : 56482.02985074627
@@ -441,7 +441,9 @@ Jishokun-Japanese English Dictionary & Translator : 0
 ```
 #### Google Play Store
 
-The Google Play Store dataset provides us with an approximate number of app installations for each genre category.  
+The Google Play Store dataset provides us with an approximate number of installations per app.  
+
+`display_table(google_final, 5)`
 
 ```
 1,000,000+ : 15.728308699086089
@@ -465,10 +467,114 @@ The Google Play Store dataset provides us with an approximate number of app inst
 1,000,000,000+ : 0.2256572266726842
 0+ : 0.045131445334536835
 ```
+On first glance, the inprecision of the data may seem like it would be a problem. But we do not believe that this is the case. Our goal is to get a general idea of which app genre performs the best. We will leave the numbers as they are - we will consider that an app with 100,000+ installs has 100,000 installs, and an app with 1,000,000+ installs has 1,000,000 installs, and so on. 
 
+The installations are presented in the csv as a string. We must convert the strings into floats. 
 
+```
+for category in categories:
+    total = 0
+    len_category = 0
+    for app in google_clean_english_free:
+        category_app = app[1]
+        if category_app == category:
+            remove = ''
+            if '+' in app[5]:
+                remove = app[5].translate({ord('+'): None})
+            if ',' in app[5]:
+                remove = remove.translate({ord(','): None})
+            installs = float(remove)
+            total += installs
+            len_category += 1
+    avg_user_ratings = total/len_category
+    print(category, ':', avg_user_ratings)
+```
+```
+PERSONALIZATION : 5201482.6122448975
+TOOLS : 10801391.298666667
+TRAVEL_AND_LOCAL : 13984077.710144928
+BOOKS_AND_REFERENCE : 8767811.894736841
+NEWS_AND_MAGAZINES : 9549178.467741935
+DATING : 854028.8303030303 ...
+```
+The top three genres that have the highest installations are:
 
+```
+COMMUNICATION : 38,456,119.167247385
+VIDEO_PLAYERS : 24727872.452830188
+SOCIAL : 23,253,652.127118643
+PHOTOGRAPHY : 17,840,110.40229885
+PRODUCTIVITY : 16,787,331.344927534
+GAME : 15,588,015.603248259
+TRAVEL_AND_LOCAL : 13,984,077.710144928
+ENTERTAINMENT : 11,640,705.88235294
+TOOLS : 10,801,391.298666667
+NEWS_AND_MAGAZINES : 9549178.467741935
+BOOKS_AND_REFERENCE : 8767811.894736841
 
+```
+On average, communication apps have the most installs: 38,456,119. This number is heavily skewed up by a few apps that have over one billion installs (WhatsApp, Facebook Messenger, Skype, Google Chrome, Gmail, and Hangouts), and a few others with over 100 and 500 million installs:
+
+```
+for app in google_final:
+    if app[1] == 'COMMUNICATION' and (app[5] == '1,000,000,000+'
+                                      or app[5] == '500,000,000+'
+                                      or app[5] == '100,000,000+'):
+        print(app[0], ':', app[5])
+```
+```
+WhatsApp Messenger : 1,000,000,000+
+imo beta free calls and text : 100,000,000+
+Android Messages : 100,000,000+
+Google Duo - High Quality Video Calls : 500,000,000+
+Messenger – Text and Video Chat for Free : 1,000,000,000+
+imo free video calls and chat : 500,000,000+
+Skype - free IM & video calls : 1,000,000,000+
+Who : 100,000,000+
+GO SMS Pro - Messenger, Free Themes, Emoji : 100,000,000+
+LINE: Free Calls & Messages : 500,000,000+
+Google Chrome: Fast & Secure : 1,000,000,000+
+Firefox Browser fast & private : 100,000,000+
+UC Browser - Fast Download Private & Secure : 500,000,000+
+Gmail : 1,000,000,000+
+Hangouts : 1,000,000,000+
+Messenger Lite: Free Calls & Messages : 100,000,000+
+Kik : 100,000,000+
+KakaoTalk: Free Calls & Text : 100,000,000+
+Opera Mini - fast web browser : 100,000,000+
+Opera Browser: Fast and Secure : 100,000,000+
+Telegram : 100,000,000+
+Truecaller: Caller ID, SMS spam blocking & Dialer : 100,000,000+
+UC Browser Mini -Tiny Fast Private & Secure : 100,000,000+
+Viber Messenger : 500,000,000+
+WeChat : 100,000,000+
+Yahoo Mail – Stay Organized : 100,000,000+
+BBM - Free Calls & Messages : 100,000,000+
+```
+If we removed all the communication apps that have over 100 million installs, the average would be reduced roughly ten times:
+
+```
+under_100_m = []
+
+for app in google_final:
+    n_installs = app[5]
+    remove = ''
+            if '+' in app[5]:
+                remove = app[5].translate({ord('+'): None})
+            if ',' in app[5]:
+                remove = remove.translate({ord(','): None})
+    if (app[1] == 'COMMUNICATION') and (float(remove) < 100000000):
+        under_100_m.append(float(n_installs))
+        
+sum(under_100_m) / len(under_100_m)
+```
+`3603485.3884615386`
+
+We see the same pattern for the video players category, which is the runner-up with 24,727,872 installs. The market is dominated by apps like Youtube, Google Play Movies & TV, or MX Player. The pattern is repeated for social apps (where we have giants like Facebook, Instagram, Google+, etc.), photography apps (Google Photos and other popular photo editors), or productivity apps (Microsoft Word, Dropbox, Google Calendar, Evernote, etc.).
+
+Again, the main concern is that these app genres might seem more popular than they really are. Moreover, these niches seem to be dominated by a few giants who are hard to compete against.
+
+The books and reference genre was almost fairly popular, with an average number of installs of 8,767,811. We found this genre had potential to work well on the App Store, and our aim is to recommend an app genre that shows potential for being profitable on both the App Store and Google Play.
 
 
 
