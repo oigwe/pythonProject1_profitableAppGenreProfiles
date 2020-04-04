@@ -1,4 +1,5 @@
-# Profitable App Profiles for the App Store and Google Play Markets
+# Finding App Development Opportunities
+## Analyzing Profitable App Profiles (for both the Apple App Store and Google Play Store Markets)
 
 **Premise:**
  For this project, we'll pretend we're working as data analysts for a company that builds Android and iOS mobile apps. We make our apps available on Google Play and the App Store.
@@ -29,7 +30,7 @@
     * File: *AppleStore.csv*
 
 ---
-## Functions
+## Functions and Algorithms
 
 **explore_data()** - Built to explore rows in a more readable way. There is an option in our function to show the number of rows and columns for any data set.
 
@@ -90,30 +91,30 @@ def display_table(dataset, index):
         print(entry[1], ':', entry[0])
 ```
 ---
-## Opening CSV Files
+## Reading the Data Files
 
 ```
 from csv import reader 
 
 ### Apple App Store Dataset ###
-opened_file_apple = open('/data_sets/AppleStore.csv')
+opened_file_apple = open('/data_sets/AppleStore.csv')          # Read in the data
 read_file_apple = reader(opened_file_apple) 
-apps_data_apple = list(read_file_apple)
+apps_data_apple = list(read_file_apple).                       # Transform read_file into a list of lists
 
 ### Google Play Store Dataset ###
-opened_file_google = open('/data_sets/googleplaystore.csv')
+opened_file_google = open('/data_sets/googleplaystore.csv')    # Read in the data
 read_file_google = reader(opened_file_google) 
-apps_data_google = list(read_file_google)`
+apps_data_google = list(read_file_google)`                     # Transform read_file into a list of lists
 ```
 **Initial Exploration of Data**
 
 ```
-apple_header = explore_data(apps_data_apple,0,1) # Header row (column names) in the AppleStore.csv
+apple_header = explore_data(apps_data_apple,0,1)               # Header row (column names) in the AppleStore.csv
 
 ['id', 'track_name', 'size_bytes', 'currency', 'price', 'rating_count_tot', 'rating_count_ver', 'user_rating', 'user_rating_ver', 'ver', 'cont_rating', 'prime_genre', 'sup_devices.num', 'ipadSc_urls.num', 'lang.num', 'vpp_lic']
 ```
 ```
-explore_data(apps_data_apple,1,6,True) # First 5 data rows in AppleStore.csv
+explore_data(apps_data_apple,1,6,True)                         # First 5 data rows in AppleStore.csv
 
 ['284882215', 'Facebook', '389879808', 'USD', '0.0', '2974676', '212', '3.5', '3.5', '95.0', '4+', 'Social Networking', '37', '1', '29', '1']
 
@@ -134,12 +135,12 @@ Number of rows: 7198
 Number of columns: 16
 ```
 ```
-google_header = explore_data(apps_data_google,0,1) # Header row (column names) in the googleplaystore.csv
+google_header = explore_data(apps_data_google,0,1)              # Header row (column names) in the googleplaystore.csv
 
 ['App', 'Category', 'Rating', 'Reviews', 'Size', 'Installs', 'Type', 'Price', 'Content Rating', 'Genres', 'Last Updated', 'Current Ver', 'Android Ver']
 ```
 ```
-explore_data(apps_data_google,1,6,True) # First 5 data rows in googleplaystore.csv
+explore_data(apps_data_google,1,6,True)                         # First 5 data rows in googleplaystore.csv
 
 ['Photo Editor & Candy Camera & Grid & ScrapBook', 'ART_AND_DESIGN', '4.1', '159', '19M', '10,000+', 'Free', '0', 'Everyone', 'Art & Design', 'January 7, 2018', '1.0.0', '4.0.3 and up']
 
@@ -167,9 +168,9 @@ Number of columns: 13
 The googleplaystore.csv has an error in row 10473 (counting header) 
 
 ```
-print(google_apps_Data[10473])  # incorrect row
+print(google_apps_Data[10473])                                   # incorrect row
 print('\n')
-print(google_header)  # header
+print(google_header)                                             # header
 ```
 ```
 ['Life Made WI-Fi Touchscreen Photo Frame', '1.9', '19', '3.0M', '1,000+', 'Free', '0', 'Everyone', '', 'February 11, 2018', '1.0.19', '4.0 and up']
@@ -283,7 +284,7 @@ False
 
 ### Cleaning Goal 4: Removing Non-Free Apps
 
-We only want to analyze the data for free apps, and thus must removed any priced apps from out dataset.
+We only want to analyze the data for free apps, and thus we must remove any priced apps from out dataset.
 
 ```
 google_final = []
